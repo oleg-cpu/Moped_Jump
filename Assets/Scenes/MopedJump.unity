@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 1110550993}
   - component: {fileID: 1110550996}
   - component: {fileID: 1110550995}
+  - component: {fileID: 1110550997}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -280,7 +281,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.5625, y: 4.9791665}
+  m_Size: {x: 0.88, y: 0.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -295,8 +296,8 @@ Transform:
   m_GameObject: {fileID: 1110550992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.026, y: 0.303, z: 0}
-  m_LocalScale: {x: 0.33399862, y: 0.22900142, z: 1}
+  m_LocalPosition: {x: -1.436, y: 0.16, z: 0}
+  m_LocalScale: {x: 0.97894496, y: 0.80692655, z: 0.5119349}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -334,13 +335,28 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 4.03
-  m_Radius: 0.45
+  m_Height: 0.67
+  m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1110550997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110550992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abaa567e1bc13e41ba2a4db9060e915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 42af42a96a88132449fe387d732e6e7f, type: 3}
+  - {fileID: 21300000, guid: 8441ba9185c0e0e47861d1e70804986e, type: 3}
 --- !u!1 &1361448397
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +411,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.92, z: 1}
+  m_Size: {x: 1, y: 1.13, z: 1}
   m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!23 &1361448401
 MeshRenderer:
