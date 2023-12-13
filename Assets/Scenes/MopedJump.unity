@@ -296,7 +296,7 @@ Transform:
   m_GameObject: {fileID: 1110550992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.436, y: 0.16, z: 0}
+  m_LocalPosition: {x: -1.714, y: 0.153, z: 0}
   m_LocalScale: {x: 0.97894496, y: 0.80692655, z: 0.5119349}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,9 +388,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objects:
   - prefab: {fileID: 2696077635511144722, guid: 391d0cd7d0b2bca40ab0c5ba3d84124a, type: 3}
-    spawnChance: 0.519
-  minSpawnRate: 1
-  maxSpawnRate: 2
+    spawnChance: 0.729
+  - prefab: {fileID: 7023835408780630287, guid: 3a9ea95628db48f43b2fe98e5b96451c, type: 3}
+    spawnChance: 0.591
+  minSpawnRate: 0.5
+  maxSpawnRate: 1
 --- !u!4 &1303523180
 Transform:
   m_ObjectHideFlags: 0
@@ -400,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 1303523178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.47, y: 0.03, z: 0}
+  m_LocalPosition: {x: 3.1, y: 0.008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -554,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialGameSpeed: 5
-  gameSpeedIncrease: 0.1
+  gameSpeedIncrease: 0.5
 --- !u!4 &2020983447
 Transform:
   m_ObjectHideFlags: 0
