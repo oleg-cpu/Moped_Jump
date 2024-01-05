@@ -46,5 +46,10 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+        else if (other.gameObject.tag == "Scoring")
+        {
+
+            FindObjectOfType<GameManager>().IncreaseScore();
+        }
     }
 }
