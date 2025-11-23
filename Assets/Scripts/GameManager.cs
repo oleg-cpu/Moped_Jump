@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI hiscoreText;
     public Button retryButton;
     public AudioSource bacgroundMusic;
+    public Image muteButtonImage;
+    public Sprite soundOnSprite;
+    public Sprite soundOffSprite;
+    private bool isMuted = false;
 
 
     private Player player;
@@ -47,6 +51,12 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         spawner = FindObjectOfType<Spawner>();
+
+        int mutedState = PlayerPrefs.GetInt("IsMuted", 0);
+        isMuted = (mutedState == 1);
+        AudioListener.volume = isMuted ? 0f : 1f;
+        UpdateMuteButtonIcon();
+
 
         NewGame();
     }
@@ -125,6 +135,34 @@ public class GameManager : MonoBehaviour
         }
 
         hiscoreText.text = Mathf.FloorToInt(hiscore).ToString();
+    }
+
+    private void UpdateMuteButtonIcon()
+    {
+        if(isMuted)
+        {
+            muteButtonImage.sprite = soundOffSprite;
+        }
+        else
+        {
+            muteButtonImage.sprite = soundOnSprite;
+        }
+    }
+
+    public void ToggleMute()
+    {
+        isMuted = !isMuted;
+        if(isMuted)
+        {
+            AudioListener.volume = 0f;
+        } 
+        else
+        {
+            AudioListener.volume = 1f;
+        }
+        UpdateMuteButtonIcon();
+        PlayerPrefs.SetInt("IsMuted", isMuted ? 1: 0);
+        PlayerPrefs.Save();
     }
 
 }
