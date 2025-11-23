@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     private CharacterController character;
     private Vector3 direction;
+    private AudioSource playerJump;
     public float gravity = 9.81f * 2f;
     public float jumpForce = 5f;
 
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     {
 
         character = GetComponent<CharacterController>();
+        playerJump = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -32,6 +34,10 @@ public class Player : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 direction = Vector3.up * jumpForce;
+                if(playerJump != null)
+                {
+                    playerJump.Play();
+                }
             }
         }
 

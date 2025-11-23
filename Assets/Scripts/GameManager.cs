@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
     public Button retryButton;
+    public AudioSource bacgroundMusic;
 
 
     private Player player;
@@ -67,6 +68,11 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
         retryButton.gameObject.SetActive(false);
 
+        if(bacgroundMusic != null)
+        {
+            bacgroundMusic.Play();
+        }
+
         score = 0f;
         scoreText.text = Mathf.FloorToInt(score).ToString();
 
@@ -86,6 +92,10 @@ public class GameManager : MonoBehaviour
         retryButton.gameObject.SetActive(true);
 
         UpdateHiscore();
+        if(bacgroundMusic != null)
+        {
+            bacgroundMusic.Stop();
+        }
 
     }
 
