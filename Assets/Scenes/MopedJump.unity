@@ -847,8 +847,8 @@ Transform:
   m_GameObject: {fileID: 558187003}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0056, y: 1.0021, z: 0}
-  m_LocalScale: {x: 6.551483, y: 2.4428682, z: 1}
+  m_LocalPosition: {x: -0.0019, y: 1.0172, z: 0}
+  m_LocalScale: {x: 6.5665517, y: 2.4729156, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1232,6 +1232,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: 42af42a96a88132449fe387d732e6e7f, type: 3}
   - {fileID: 21300000, guid: 8441ba9185c0e0e47861d1e70804986e, type: 3}
+  animationSpeed: 10
 --- !u!82 &1110550998
 AudioSource:
   m_ObjectHideFlags: 0
