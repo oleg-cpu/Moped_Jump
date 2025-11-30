@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
     public float initialGameSpeed = 5f;
     public float gameSpeedIncrease = 0.5f;
     public float gameSpeed { get; private set; }
-
-    public TextMeshProUGUI gameOverText;
+    public GameObject mainMenuUi;
+    public GameObject gameOverMenuUi;
+    public GameObject gameUi;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
     public Button retryButton;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 
 
     private Player player;
+    private AnimatedSprite playerAnimation;
     private Spawner spawner;
     private float score;
 
@@ -51,17 +53,73 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         spawner = FindObjectOfType<Spawner>();
+        playerAnimation = player.GetComponent<AnimatedSprite>();
 
         int mutedState = PlayerPrefs.GetInt("IsMuted", 0);
         isMuted = (mutedState == 1);
         AudioListener.volume = isMuted ? 0f : 1f;
         UpdateMuteButtonIcon();
+        ShowMainMenu();
+        UpdateHiscore();
 
-
-        NewGame();
     }
 
-    public void NewGame()
+    public void ShowMainMenu()
+    {
+        mainMenuUi.SetActive(true);
+        gameOverMenuUi.SetActive(false);
+        gameUi.SetActive(false);
+        Time.timeScale = 0f;
+        spawner.gameObject.SetActive(false);
+        if (player != null)
+        {
+            player.enabled = false;
+            playerAnimation.StopAnimation();
+        }
+        if (bacgroundMusic != null && !bacgroundMusic.isPlaying)
+        {
+            bacgroundMusic.Play();
+        }
+
+    }
+
+    public void StartGame()
+    {
+        mainMenuUi.SetActive(false);
+        gameOverMenuUi.SetActive(false);
+        gameUi.SetActive(true);
+
+        gameSpeed = initialGameSpeed;
+        enabled = true;
+        Time.timeScale = 1f;
+        spawner.gameObject.SetActive(true);
+        if (player != null)
+        {
+            player.enabled = true;
+            if (playerAnimation != null)
+            {
+                playerAnimation.StartAnimation();
+            }
+        }
+
+        if (bacgroundMusic != null && !bacgroundMusic.isPlaying)
+        {
+            bacgroundMusic.Play();
+        }
+
+
+        ResetGame();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
+
+    public void ResetGame()
     {
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
 
@@ -69,20 +127,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(obstacle.gameObject);
         }
-
-        gameSpeed = initialGameSpeed;
-        enabled = true;
-
-        player.gameObject.SetActive(true);
-        spawner.gameObject.SetActive(true);
-        gameOverText.gameObject.SetActive(false);
-        retryButton.gameObject.SetActive(false);
-
-        if(bacgroundMusic != null)
-        {
-            bacgroundMusic.Play();
-        }
-
         score = 0f;
         scoreText.text = Mathf.FloorToInt(score).ToString();
 
@@ -91,22 +135,34 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-
         gameSpeed = 0f;
         enabled = false;
-
-        player.gameObject.SetActive(false);
-        spawner.gameObject.SetActive(false);
-
-        gameOverText.gameObject.SetActive(true);
-        retryButton.gameObject.SetActive(true);
-
         UpdateHiscore();
-        if(bacgroundMusic != null)
+        showGameOverUi();
+    }
+
+    public void showGameOverUi()
+    {
+        mainMenuUi.SetActive(false);
+        gameOverMenuUi.SetActive(true);
+        gameUi.SetActive(true);
+        spawner.gameObject.SetActive(false);
+        Time.timeScale = 0f;
+
+        if (player != null)
+        {
+            player.enabled = false;
+        }
+
+        if (playerAnimation != null)
+        {
+            playerAnimation.StopAnimation();
+        }
+
+        if (bacgroundMusic != null)
         {
             bacgroundMusic.Stop();
         }
-
     }
 
     private void Update()
@@ -139,7 +195,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateMuteButtonIcon()
     {
-        if(isMuted)
+        if (isMuted)
         {
             muteButtonImage.sprite = soundOffSprite;
         }
@@ -152,16 +208,16 @@ public class GameManager : MonoBehaviour
     public void ToggleMute()
     {
         isMuted = !isMuted;
-        if(isMuted)
+        if (isMuted)
         {
             AudioListener.volume = 0f;
-        } 
+        }
         else
         {
             AudioListener.volume = 1f;
         }
         UpdateMuteButtonIcon();
-        PlayerPrefs.SetInt("IsMuted", isMuted ? 1: 0);
+        PlayerPrefs.SetInt("IsMuted", isMuted ? 1 : 0);
         PlayerPrefs.Save();
     }
 
