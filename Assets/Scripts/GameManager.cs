@@ -76,10 +76,8 @@ public class GameManager : MonoBehaviour
             player.enabled = false;
             playerAnimation.StopAnimation();
         }
-        if (bacgroundMusic != null && !bacgroundMusic.isPlaying)
-        {
-            bacgroundMusic.Play();
-        }
+        
+        PlayBackgroundMusic();
 
     }
 
@@ -102,11 +100,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (bacgroundMusic != null && !bacgroundMusic.isPlaying)
-        {
-            bacgroundMusic.Play();
-        }
-
+       
+        PlayBackgroundMusic();
 
         ResetGame();
     }
@@ -165,6 +160,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GoToMainMenu()
+    {
+        ResetGame();
+        ShowMainMenu();
+    }
+
     private void Update()
     {
 
@@ -219,6 +220,13 @@ public class GameManager : MonoBehaviour
         UpdateMuteButtonIcon();
         PlayerPrefs.SetInt("IsMuted", isMuted ? 1 : 0);
         PlayerPrefs.Save();
+    }
+    private void PlayBackgroundMusic()
+    {
+        if (bacgroundMusic != null && !bacgroundMusic.isPlaying)
+        {
+            bacgroundMusic.Play();
+        }
     }
 
 }
