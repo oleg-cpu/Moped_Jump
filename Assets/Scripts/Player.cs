@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -31,10 +32,10 @@ public class Player : MonoBehaviour
 
             direction = Vector3.down;
 
-            if (Input.GetButton("Jump"))
+            if (CheckJumpInput())
             {
                 direction = Vector3.up * jumpForce;
-                if(playerJump != null)
+                if (playerJump != null)
                 {
                     playerJump.Play();
                 }
@@ -45,6 +46,28 @@ public class Player : MonoBehaviour
 
     }
 
+
+    private bool CheckJumpInput()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+        else if (Input.GetButtonDown("Jump"))
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
 
@@ -52,10 +75,9 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
-        else if (other.gameObject.tag == "Scoring")
+        else if (other.CompareTag("Scoring"))
         {
-
-            FindObjectOfType<GameManager>().IncreaseScore();
+            GameManager.Instance.IncreaseScore();
         }
     }
 }

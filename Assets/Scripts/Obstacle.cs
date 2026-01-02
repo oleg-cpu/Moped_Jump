@@ -4,7 +4,7 @@ public class Obstacle : MonoBehaviour
 {
     private float leftEdge;
 
-    private void Start()
+    private void OnEnable()
     {
 
         leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 2f;
@@ -16,7 +16,7 @@ public class Obstacle : MonoBehaviour
 
         if (transform.position.x < leftEdge)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
